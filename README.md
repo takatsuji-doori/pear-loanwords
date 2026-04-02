@@ -18,7 +18,6 @@ Loanword dictionary and romaji override editor for [Pear](https://github.com/th-
 ## Setup
 
 1. Install [YouTube Music Desktop App](https://github.com/th-ch/youtube-music)
-2. Set your Gemini API key: `export GEMINI_API_KEY="(YOUR_GEMINI_API_KEY)"`
 3. Run `python3 pear-server.py`
 4. Open `http://localhost:8765/pear-unknown-viewer.html`
 
