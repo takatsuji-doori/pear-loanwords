@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Pear Unknown Words</title>
+<style>
+  body { font-family: sans-serif; background: #1a1a2e; color: #eee; padding: 20px; margin: 0; }
+  h1 { color: #e94560; margin-bottom: 5px; }
+  .subtitle { color: #888; font-size: 0.85em; margin-bottom: 20px; }
+  .tabs { display: flex; gap: 10px; margin-bottom: 16px; }
+  .tab { padding: 8px 20px; border: none; border-radius: 4px; cursor: pointer; background: #16213e; color: #eee; }
+  .tab.active { background: #e94560; }
+  .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #16213e; padding: 10px; text-align: left; cursor: pointer; user-select: none; }
+  th:hover { background: #1e2d50; }
+  td { padding: 8px 10px; border-bottom: 1px solid #333; }
+  tr:hover td { background: #16213e; }
+  input[type=text] { background: #0f3460; border: 1px solid #e94560; color: #eee; padding: 4px 8px; border-radius: 4px; width: 180px; }
+  button { padding: 6px 14px; border: none; border-radius: 4px; cursor: pointer; margin: 2px; }
+  .btn-primary { background: #e94560; color: #fff; }
+  .btn-green { background: #4ecca3; color: #000; font-weight: bold; }
+  .btn-gray { background: #555; color: #fff; }
+  .count { color: #888; font-size: 0.85em; }
+  .date { color: #666; font-size: 0.8em; }
+  .override-val { color: #4ecca3; font-weight: bold; }
+  #status { padding: 6px 14px; border-radius: 4px; font-size: 0.9em; }
+  .status-ok { background: #4ecca3; color: #000; }
+  .status-err { background: #e94560; color: #fff; }
+  .status-info { color: #888; }
+  #export-box { width: 100%; background: #0f3460; color: #4ecca3; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 0.8em; margin-top: 10px; white-space: pre-wrap; word-break: break-all; display: none; }
+  .badge { font-size: 0.75em; padding: 2px 8px; border-radius: 10px; background: #0f3460; margin-left: 6px; }
+</style>
+</head>
+<body>
+<h1>🎵 Pear Unknown Words</h1>
+<div class="subtitle" id="server-status">サーバーに接続中...</div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="pending" onclick="showTab('pending')">未解決 <span class="badge" id="badge-pending">0</span></button>
+  <button class="tab" data-tab="resolved" onclick="showTab('resolved')">解決済み <span class="badge" id="badge-resolved">0</span></button>
+  <button class="tab" data-tab="romaji" onclick="showTab('romaji')">ローマ字修正 <span class="badge" id="badge-romaji">0</span></button>
+</div>
+
+<div class="toolbar">
+  <button class="btn-green" onclick="bulkSave()">💾 一括保存</button>
+  <button class="btn-primary" onclick="loadData()">🔄 再読み込み</button>
+  <span id="status" class="status-info"></span>
+</div>
+
+<div id="content"></div>
+<div id="export-box"></div>
+
+<script>
+const API = 'http://localhost:8765';
+let _data = {};
+let _currentTab = 'pending';
+let _sortKey = 'last_seen';
+let _sortDir = -1;
+
+function showStatus(msg, type='ok') {
+  const s = document.getElementById('status');
+  s.textContent = msg;
+  s.className = type === 'ok' ? 'status-ok' : type === 'err' ? 'status-err' : 'status-info';
+  if (type !== 'info') setTimeout(() => { s.textContent = ''; s.className = 'status-info'; }, 3000);
+}
+
+async function loadData() {
+  try {
+    const res = await fetch(`${API}/api/data`);
+    _data = await res.json();
+    document.getElementById('server-status').textContent = `✅ サーバー接続中 | ${Object.keys(_data).length}件`;
+    updateBadges();
+    render(_currentTab);
+    showStatus('データを読み込みました', 'ok');
+  } catch(e) {
+    document.getElementById('server-status').textContent = '❌ サーバーに接続できません (http://localhost:8765)';
+    showStatus('サーバーに接続できません', 'err');
+  }
+}
+
+async function bulkSave() {
+  // 表示中の全行のinput値を反映
+  const items = getItems(_currentTab);
+  items.forEach(([w]) => {
+    const prefix = _currentTab === 'romaji' ? 'ri_' : 'i_';
+    const el = document.getElementById(prefix + CSS.escape(w));
+    if (el) _data[w].override = el.value.trim() || null;
+  });
+  if (_currentTab === 'romaji') {
+    const nw = document.getElementById('new-romaji-word')?.value.trim();
+    const no = document.getElementById('new-romaji-override')?.value.trim();
+    if (nw && no) _data[nw] = { count: 0, type: 'romaji', override: no, first_seen: new Date().toISOString(), last_seen: new Date().toISOString() };
+  }
+  try {
+    await fetch(`${API}/api/save`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(_data) });
+    showStatus('✅ 保存しました', 'ok');
+    updateBadges();
+    render(_currentTab);
+  } catch(e) {
+    // サーバーに繋がらない場合はクリップボードにフォールバック
+    const code = `localStorage.setItem('pearUnknown', ${JSON.stringify(JSON.stringify(_data))})`;
+    navigator.clipboard.writeText(code);
+    document.getElementById('export-box').style.display = 'block';
+    document.getElementById('export-box').textContent = code;
+    showStatus('サーバー未接続: クリップボードにコピーしました', 'err');
+  }
+}
+
+function deleteWord(word) {
+  delete _data[word];
+  fetch(`${API}/api/save`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(_data) });
+  updateBadges();
+  render(_currentTab);
+}
+
+function showTab(tab) {
+  _currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  render(tab);
+}
+
+function getItems(tab) {
+  let items;
+  if (tab === 'romaji') items = Object.entries(_data).filter(([,v]) => v.type === 'romaji');
+  else if (tab === 'pending') items = Object.entries(_data).filter(([,v]) => v.type !== 'romaji' && !v.override);
+  else items = Object.entries(_data).filter(([,v]) => v.type !== 'romaji' && !!v.override);
+  // ソート
+  items.sort((a, b) => {
+    let va = a[1][_sortKey] ?? '';
+    let vb = b[1][_sortKey] ?? '';
+    if (_sortKey === 'count') return _sortDir * (va - vb);
+    return _sortDir * String(va).localeCompare(String(vb));
+  });
+  return items;
+}
+
+function updateBadges() {
+  document.getElementById('badge-pending').textContent = Object.values(_data).filter(v => v.type !== 'romaji' && !v.override).length;
+  document.getElementById('badge-resolved').textContent = Object.values(_data).filter(v => v.type !== 'romaji' && !!v.override).length;
+  document.getElementById('badge-romaji').textContent = Object.values(_data).filter(v => v.type === 'romaji').length;
+}
+
+function setSort(key) {
+  if (_sortKey === key) _sortDir *= -1;
+  else { _sortKey = key; _sortDir = -1; }
+  render(_currentTab);
+}
+
+function fmt(iso) {
+  if (!iso) return '';
+  return iso.slice(0,16).replace('T',' ');
+}
+
+function addRomaji() {
+  const w = document.getElementById('new-romaji-word')?.value.trim();
+  const o = document.getElementById('new-romaji-override')?.value.trim();
+  if (!w || !o) return;
+  _data[w] = { count: 0, type: 'romaji', override: o, first_seen: new Date().toISOString(), last_seen: new Date().toISOString() };
+  document.getElementById('new-romaji-word').value = '';
+  document.getElementById('new-romaji-override').value = '';
+  render('romaji');
+}
+
+function render(tab) {
+  const el = document.getElementById('content');
+  const items = getItems(tab);
+  const arrow = k => _sortKey === k ? (_sortDir === -1 ? ' ▼' : ' ▲') : '';
+
+  if (tab === 'romaji') {
+    el.innerHTML = `
+      <table>
+        <tr>
+          <th onclick="setSort('_key')">ローマ字${arrow('_key')}</th>
+          <th onclick="setSort('last_seen')">最終更新${arrow('last_seen')}</th>
+          <th>修正後</th>
+          <th></th>
+        </tr>
+        ${items.map(([w,v]) => `
+          <tr>
+            <td>${w}</td>
+            <td class="date">${fmt(v.last_seen)}</td>
+            <td><input type="text" id="ri_${CSS.escape(w)}" value="${v.override||''}" placeholder="修正後"></td>
+            <td><button class="btn-gray" onclick="deleteWord('${w}')">削除</button></td>
+          </tr>`).join('')}
+        <tr>
+          <td><input type="text" id="new-romaji-word" placeholder="例: jumbi"></td>
+          <td></td>
+          <td><input type="text" id="new-romaji-override" placeholder="例: junbi"></td>
+          <td><button class="btn-primary" onclick="addRomaji()">追加</button></td>
+        </tr>
+      </table>`;
+    return;
+  }
+
+  el.innerHTML = `
+    <table>
+      <tr>
+        <th onclick="setSort('_key')">カタカナ語${arrow('_key')}</th>
+        <th onclick="setSort('count')">出現回数${arrow('count')}</th>
+        <th onclick="setSort('last_seen')">最終更新${arrow('last_seen')}</th>
+        <th onclick="setSort('first_seen')">初回${arrow('first_seen')}</th>
+        <th>override</th>
+        <th></th>
+      </tr>
+      ${items.map(([w,v]) => `
+        <tr>
+          <td>${w}</td>
+          <td class="count">${v.count||0}回</td>
+          <td class="date">${fmt(v.last_seen)}</td>
+          <td class="date">${fmt(v.first_seen)}</td>
+          <td><input type="text" id="i_${CSS.escape(w)}" value="${v.override||''}" placeholder="原語スペル"></td>
+          <td><button class="btn-gray" onclick="deleteWord('${w}')">削除</button></td>
+        </tr>`).join('')}
+    </table>
+    ${items.length === 0 ? '<p style="color:#888">データなし</p>' : ''}`;
+}
+
+loadData();
+</script>
+</body>
+</html>

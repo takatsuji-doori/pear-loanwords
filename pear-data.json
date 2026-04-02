@@ -1,0 +1,65 @@
+{
+  "ニセモノ": {
+    "count": 1,
+    "type": "katakana",
+    "override": "nisemono",
+    "first_seen": "2026-03-31T23:08:49.767913",
+    "last_seen": "2026-03-31T23:08:49.767913"
+  },
+  "ホンモノ": {
+    "count": 1,
+    "type": "katakana",
+    "override": "honmono",
+    "first_seen": "2026-03-31T23:08:49.767913",
+    "last_seen": "2026-03-31T23:08:49.767913"
+  },
+  "マチガイ": {
+    "count": 1,
+    "type": "katakana",
+    "override": "machigai",
+    "first_seen": "2026-03-31T23:08:54.405589",
+    "last_seen": "2026-03-31T23:08:54.405589"
+  },
+  "セイカイ": {
+    "count": 1,
+    "type": "katakana",
+    "override": "seikai",
+    "first_seen": "2026-03-31T23:08:54.405589",
+    "last_seen": "2026-03-31T23:08:54.405589"
+  },
+  "カタチ": {
+    "count": 6,
+    "type": "katakana",
+    "override": "katachi",
+    "first_seen": "2026-03-31T23:10:06.406739",
+    "last_seen": "2026-03-31T23:12:37.831321"
+  },
+  "コタエ": {
+    "count": 6,
+    "type": "katakana",
+    "override": "kotae",
+    "first_seen": "2026-03-31T23:10:07.160850",
+    "last_seen": "2026-03-31T23:12:37.819066"
+  },
+  "ホント": {
+    "count": 2,
+    "type": "katakana",
+    "override": "onto",
+    "first_seen": "2026-03-31T23:10:39.232639",
+    "last_seen": "2026-03-31T23:12:37.808201"
+  },
+  "モノクロ": {
+    "count": 3,
+    "type": "katakana",
+    "override": "monochro",
+    "first_seen": "2026-03-31T23:12:39.213023",
+    "last_seen": "2026-03-31T23:13:09.608910"
+  },
+  "アクティベート": {
+    "count": 1,
+    "type": "katakana",
+    "override": "activate",
+    "first_seen": "2026-03-31T23:12:39.220493",
+    "last_seen": "2026-03-31T23:12:39.220493"
+  }
+}
