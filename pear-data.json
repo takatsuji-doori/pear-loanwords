@@ -44,7 +44,7 @@
   "ホント": {
     "count": 2,
     "type": "katakana",
-    "override": "onto",
+    "override": "honto",
     "first_seen": "2026-03-31T23:10:39.232639",
     "last_seen": "2026-03-31T23:12:37.808201"
   },
@@ -61,5 +61,236 @@
     "override": "activate",
     "first_seen": "2026-03-31T23:12:39.220493",
     "last_seen": "2026-03-31T23:12:39.220493"
+  },
+  "ジャパリパーク": {
+    "count": 3,
+    "type": "katakana",
+    "override": "Japari Park",
+    "first_seen": "2026-04-01T00:11:32.949826",
+    "last_seen": "2026-04-01T00:11:42.264345"
+  },
+  "ドッタンバッタン": {
+    "count": 2,
+    "type": "katakana",
+    "override": "dottan battan",
+    "first_seen": "2026-04-01T00:11:32.951356",
+    "last_seen": "2026-04-01T00:11:43.671650"
+  },
+  "バラバラ": {
+    "count": 7,
+    "type": "katakana",
+    "override": "barabara",
+    "first_seen": "2026-04-01T00:12:15.792436",
+    "last_seen": "2026-04-01T00:12:42.939951"
+  },
+  "グレイトジャーニー": {
+    "count": 6,
+    "type": "katakana",
+    "override": "great journey",
+    "first_seen": "2026-04-01T00:12:22.399007",
+    "last_seen": "2026-04-01T00:12:42.949758"
+  },
+  "サファリメロディ": {
+    "count": 5,
+    "type": "katakana",
+    "override": "safari melody",
+    "first_seen": "2026-04-01T00:12:22.574031",
+    "last_seen": "2026-04-01T00:12:42.951825"
+  },
+  "ララララ": {
+    "count": 17,
+    "type": "katakana",
+    "override": "rararara",
+    "first_seen": "2026-04-01T00:12:32.136970",
+    "last_seen": "2026-04-01T00:12:42.961447"
+  },
+  "ララララララ": {
+    "count": 8,
+    "type": "katakana",
+    "override": "rararararara",
+    "first_seen": "2026-04-01T00:12:32.511379",
+    "last_seen": "2026-04-01T00:12:42.961447"
+  },
+  "ジャパリ": {
+    "count": 2,
+    "type": "katakana",
+    "override": "Japari",
+    "first_seen": "2026-04-01T00:12:33.258873",
+    "last_seen": "2026-04-01T00:12:39.180404"
+  },
+  "イージーモード": {
+    "count": 5,
+    "type": "katakana",
+    "override": "easy mode",
+    "first_seen": "2026-04-01T00:14:30.542176",
+    "last_seen": "2026-04-01T00:15:05.394670"
+  },
+  "ポジティブダイアローグ": {
+    "count": 4,
+    "type": "katakana",
+    "override": "positive dialogue",
+    "first_seen": "2026-04-01T00:14:45.831963",
+    "last_seen": "2026-04-01T00:15:04.382836"
+  },
+  "オールコンプリート": {
+    "count": 4,
+    "type": "katakana",
+    "override": "all complete",
+    "first_seen": "2026-04-01T00:14:50.835737",
+    "last_seen": "2026-04-01T00:15:04.384871"
+  },
+  "カバン": {
+    "count": 12,
+    "type": "katakana",
+    "override": "kaban",
+    "first_seen": "2026-04-01T00:15:41.737371",
+    "last_seen": "2026-04-01T00:16:16.446761"
+  },
+  "リュブリカント": {
+    "count": 11,
+    "type": "katakana",
+    "override": "ubricant",
+    "first_seen": "2026-04-01T00:15:43.521074",
+    "last_seen": "2026-04-01T00:16:16.448835"
+  },
+  "シェラカップ": {
+    "count": 10,
+    "type": "katakana",
+    "override": "Sierra cup",
+    "first_seen": "2026-04-01T00:15:43.731235",
+    "last_seen": "2026-04-01T00:16:16.449733"
+  },
+  "ホントノキモチ": {
+    "count": 5,
+    "type": "katakana",
+    "override": "hontonokimochi",
+    "first_seen": "2026-04-01T00:19:04.838661",
+    "last_seen": "2026-04-01T00:19:26.714356"
+  },
+  "ゴメン": {
+    "count": 6,
+    "type": "katakana",
+    "override": "gomen",
+    "first_seen": "2026-04-01T00:19:04.842951",
+    "last_seen": "2026-04-01T00:19:32.572937"
+  },
+  "ナミダ": {
+    "count": 6,
+    "type": "katakana",
+    "override": "namida",
+    "first_seen": "2026-04-01T00:19:04.842951",
+    "last_seen": "2026-04-01T00:19:32.572937"
+  },
+  "カラマワリ": {
+    "count": 8,
+    "type": "katakana",
+    "override": "karamawari",
+    "first_seen": "2026-04-01T00:19:21.455247",
+    "last_seen": "2026-04-01T00:19:43.161392"
+  },
+  "ギュッ": {
+    "count": 8,
+    "type": "katakana",
+    "override": "gyut",
+    "first_seen": "2026-04-01T00:19:21.456255",
+    "last_seen": "2026-04-01T00:19:43.162709"
+  },
+  "ソライロ": {
+    "count": 10,
+    "type": "katakana",
+    "override": "sorairo",
+    "first_seen": "2026-04-01T00:19:21.460552",
+    "last_seen": "2026-04-01T00:20:03.160350"
+  },
+  "ドタバタ": {
+    "count": 9,
+    "type": "katakana",
+    "override": "dotabata",
+    "first_seen": "2026-04-01T00:19:38.252944",
+    "last_seen": "2026-04-01T00:20:04.616312"
+  },
+  "ヤキモキ": {
+    "count": 4,
+    "type": "katakana",
+    "override": "yakimochi",
+    "first_seen": "2026-04-01T00:22:19.768211",
+    "last_seen": "2026-04-01T00:22:26.783433"
+  },
+  "ウワサ": {
+    "count": 2,
+    "type": "katakana",
+    "override": "uwasa",
+    "first_seen": "2026-04-01T00:23:00.506367",
+    "last_seen": "2026-04-01T00:23:13.196658"
+  },
+  "ジャジャジャン": {
+    "count": 3,
+    "type": "katakana",
+    "override": "jajajan",
+    "first_seen": "2026-04-02T10:24:57.866036",
+    "last_seen": "2026-04-02T10:25:18.862832"
+  },
+  "フッフー": {
+    "count": 15,
+    "type": "katakana",
+    "override": "fuffuu",
+    "first_seen": "2026-04-02T10:25:05.797937",
+    "last_seen": "2026-04-02T10:25:25.559495"
+  },
+  "イェーイ": {
+    "count": 10,
+    "type": "katakana",
+    "override": "yeah",
+    "first_seen": "2026-04-02T10:26:11.163232",
+    "last_seen": "2026-04-02T10:27:06.765951"
+  },
+  "チヤホヤ": {
+    "count": 6,
+    "type": "katakana",
+    "override": "chiyahoya",
+    "first_seen": "2026-04-02T10:26:12.550058",
+    "last_seen": "2026-04-02T10:27:06.764313"
+  },
+  "フェイクニュース": {
+    "count": 4,
+    "type": "katakana",
+    "override": "fake news",
+    "first_seen": "2026-04-02T10:26:13.309556",
+    "last_seen": "2026-04-02T10:27:06.767502"
+  },
+  "セトリ": {
+    "count": 3,
+    "type": "katakana",
+    "override": "setli'",
+    "first_seen": "2026-04-02T10:26:15.601621",
+    "last_seen": "2026-04-02T10:26:19.967697"
+  },
+  "ハッピーモモジャン": {
+    "count": 3,
+    "type": "katakana",
+    "override": "happy Mo' Mo' Jump",
+    "first_seen": "2026-04-02T10:26:18.087975",
+    "last_seen": "2026-04-02T10:26:19.970982"
+  },
+  "ラブリーモモジャン": {
+    "count": 2,
+    "type": "katakana",
+    "override": "lovely Mo' Mo' Jump",
+    "first_seen": "2026-04-02T10:26:18.094378",
+    "last_seen": "2026-04-02T10:26:23.373741"
+  },
+  "スーパーアイドル": {
+    "count": 1,
+    "type": "katakana",
+    "override": "superidol",
+    "first_seen": "2026-04-02T10:26:18.096104",
+    "last_seen": "2026-04-02T10:26:18.096104"
+  },
+  "ラララ": {
+    "count": 20,
+    "type": "katakana",
+    "override": "lalala",
+    "first_seen": "2026-04-02T10:28:45.756343",
+    "last_seen": "2026-04-02T10:37:58.909863"
   }
 }
